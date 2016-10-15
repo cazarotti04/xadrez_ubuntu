@@ -18,6 +18,16 @@ namespace tabuleiro
             this.colunas = colunas;
             pecas = new Peca[linhas, colunas];
         }
+
+		public Peca peca(Posicao pos){
+			return pecas [pos.linha, pos.coluna];
+		}
+
+		public bool existePeca(Posicao pos){
+			validarPosicao (pos);
+			return peca (pos) != null;
+		}
+
         public Peca pp(int linha, int coluna)
         {
             return pecas[linha, coluna];
@@ -27,5 +37,20 @@ namespace tabuleiro
             pecas[pos.linha, pos.coluna] = p;
             p.pos = pos;
         }
+
+		public bool posicaovalida(Posicao pos){
+			if (pos.linha < 0 || pos.linha >= linhas || pos.coluna < 0 || pos.coluna >= colunas) {
+				return false;
+			} else {
+				return true;
+			}
+		}
+
+		public void validarPosicao(Posicao pos){
+			if (!posicaovalida (pos)) {
+				throw new TabuleiroException ("Posição Inválida!");
+			}
+		}
+
     }
 }
